@@ -146,3 +146,75 @@
 - 17.2 Node.js Best Practices and Coding Standards
 - 17.3 Recommended Learning Resources
 - 17.4 Common Node.js Interview Questions
+
+# Introduction to Node.js
+
+## 1.1 What is Node.js?
+
+Node.js is a platform that allows you to run JavaScript on the server side, outside of a web browser. Traditionally, JavaScript was used to make websites interactive by running in the user's browser. However, with Node.js, you can use JavaScript to build full applications, from the backend (the part of the website or app that users don’t see) to the frontend (the part that users interact with).
+
+Think of Node.js as the engine that powers JavaScript on the server. It's built on top of the Chrome V8 engine, which makes it fast and efficient.
+
+**Key points:**
+
+- **JavaScript on the server**: With Node.js, JavaScript is not limited to the browser anymore.
+- **Powered by Chrome V8 engine**: This engine is responsible for running JavaScript very quickly.
+
+![Node.js Explanation](https://via.placeholder.com/600x300.png)
+
+## 1.2 Key Features of Node.js
+
+Some of the main features that make Node.js popular include:
+
+- **Asynchronous and Event-driven**: Node.js allows multiple things to happen at once (like multitasking), which makes it great for handling many requests at the same time.
+- **Non-blocking I/O**: Input/output operations (like reading a file or accessing a database) do not block the main process, meaning Node.js can handle other tasks in the meantime.
+- **Single-threaded**: Node.js uses a single thread to handle all operations, but because of its asynchronous nature, it can still manage many operations efficiently.
+- **Cross-platform**: Node.js runs on Windows, Linux, macOS, and more.
+
+![Node.js Features](https://via.placeholder.com/600x300.png)
+
+## 1.3 How Node.js Works: Event Loop & Non-blocking I/O
+
+Node.js uses an event loop to handle multiple operations. The event loop is like a manager that keeps track of all tasks that need to be done and ensures that none of them block others.
+
+- **Event Loop**: This is what allows Node.js to perform non-blocking I/O. Instead of waiting for a task to complete, Node.js moves on to the next task and returns to the first one later.
+- **Non-blocking I/O**: Operations like reading files, sending network requests, or accessing databases are non-blocking. This means Node.js doesn’t wait for these tasks to finish; it keeps processing other things.
+
+Imagine a restaurant: the event loop is like a waiter who takes orders and serves food. The waiter doesn’t wait by the kitchen until the food is ready; they continue serving other customers and only come back when the food is ready.
+
+![Node.js Event Loop](https://via.placeholder.com/600x300.png)
+
+## 1.4 Setting Up Node.js Environment
+
+To start working with Node.js, you need to set up your development environment:
+
+1. **Install Node.js**: Go to the [Node.js website](https://nodejs.org) and download the latest version.
+2. **Check Installation**: After installation, open your terminal or command prompt and type `node -v` to check the version of Node.js installed.
+3. **Set Up a Project Folder**: Create a folder for your Node.js project and open it in a code editor (like Visual Studio Code).
+
+```bash
+# Example of checking Node.js version
+$ node -v
+v18.0.0
+```
+
+## 1.5 Your First Node.js Program
+
+Let’s write a simple Node.js program that prints "Hello, World!" to the console.
+
+1. Create a new file called `app.js` in your project folder.
+2. Write the following code in `app.js`:
+
+```javascript
+console.log("Hello, World!");
+```
+
+3. Open your terminal, navigate to your project folder, and run the program using the following command:
+
+```bash
+$ node app.js
+```
+
+You should see the text `Hello, World!` printed on the screen.
+
+![Hello World Example](https://via.placeholder.com/600x300.png)
