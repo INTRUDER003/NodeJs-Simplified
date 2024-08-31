@@ -218,3 +218,186 @@ $ node app.js
 You should see the text `Hello, World!` printed on the screen.
 
 ![Hello World Example](https://via.placeholder.com/600x300.png)
+
+# Node.js Modules
+
+## 2.1 What are Modules in Node.js?
+
+Modules in Node.js are reusable blocks of code that can be included in other parts of your application. Each module in Node.js has its own context, meaning variables and functions defined in one module are not accessible in another unless explicitly exported. This modular design helps in organizing code, making it more manageable and reusable.
+
+### Example:
+
+Suppose you have a file `mathOperations.js` where you define some mathematical functions:
+
+```javascript
+// mathOperations.js
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+module.exports = { add, subtract };
+```
+
+You can then use these functions in another file by importing the module:
+
+```javascript
+// app.js
+const math = require("./mathOperations");
+
+console.log(math.add(5, 3)); // Outputs: 8
+console.log(math.subtract(5, 3)); // Outputs: 2
+```
+
+## 2.2 Built-in Modules vs Custom Modules
+
+- **Built-in Modules**: These are modules provided by Node.js out of the box. Examples include `fs` for file system operations, `http` for creating servers, and `path` for handling file paths.
+- **Custom Modules**: These are user-defined modules created to encapsulate specific functionality. You define these modules in separate files and then use `require()` to include them in your application.
+
+### Example:
+
+Using a built-in module:
+
+```javascript
+const fs = require("fs");
+
+fs.writeFileSync("hello.txt", "Hello, world!");
+console.log("File created successfully");
+```
+
+Creating and using a custom module:
+
+```javascript
+// greeting.js
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+module.exports = greet;
+```
+
+```javascript
+// app.js
+const greet = require("./greeting");
+
+console.log(greet("John")); // Outputs: Hello, John!
+```
+
+## 2.3 Using `require()` and `module.exports`
+
+- **`require()`**: This function is used to include modules in your application. You can use it to load both built-in and custom modules.
+- **`module.exports`**: This is an object that is returned as the result of a `require()` call. You can attach functions, objects, or variables to `module.exports` to make them available in other files.
+
+### Example:
+
+```javascript
+// calculator.js
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
+  }
+  return a / b;
+}
+
+module.exports = { multiply, divide };
+```
+
+```javascript
+// app.js
+const calculator = require("./calculator");
+
+console.log(calculator.multiply(10, 2)); // Outputs: 20
+console.log(calculator.divide(10, 2)); // Outputs: 5
+```
+
+## 2.4 Exploring Core Modules
+
+Node.js comes with several core modules that provide essential functionalities:
+
+- **`fs` (File System)**: Allows interacting with the file system, reading, writing, and manipulating files.
+- **`path`**: Provides utilities for working with file and directory paths.
+- **`http`**: Used to create servers and handle HTTP requests and responses.
+- **`os`**: Provides information about the operating system, such as CPU architecture, memory, and network interfaces.
+
+### Example:
+
+```javascript
+const os = require("os");
+const path = require("path");
+const fs = require("fs");
+
+console.log(`Operating System: ${os.platform()}`);
+console.log(`CPU Architecture: ${os.arch()}`);
+console.log(`Home Directory: ${os.homedir()}`);
+
+const filePath = path.join(os.homedir(), "hello.txt");
+fs.writeFileSync(filePath, "Hello, Node.js!");
+console.log("File created at:", filePath);
+```
+
+## 2.5 Using Third-Party Modules with npm
+
+Node.js has a rich ecosystem of third-party modules that can be installed using npm (Node Package Manager). These modules provide additional functionality that isn't included in Node.js by default.
+
+### Example:
+
+Let's say you want to use the `axios` library to make HTTP requests.
+
+1. Install the module using npm:
+
+```bash
+npm install axios
+```
+
+2. Use the module in your application:
+
+```javascript
+const axios = require("axios");
+
+axios
+  .get("https://api.github.com/users/octocat")
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+  });
+```
+
+## 2.6 Creating Custom Modules
+
+Creating custom modules in Node.js is straightforward. You just define your functions or objects in a file, then export them using `module.exports`.
+
+### Example:
+
+Let's create a module for basic string operations.
+
+```javascript
+// stringOperations.js
+function toUpperCase(str) {
+  return str.toUpperCase();
+}
+
+function toLowerCase(str) {
+  return str.toLowerCase();
+}
+
+module.exports = { toUpperCase, toLowerCase };
+```
+
+You can then use these functions in another file:
+
+```javascript
+// app.js
+const stringOps = require("./stringOperations");
+
+console.log(stringOps.toUpperCase("hello")); // Outputs: HELLO
+console.log(stringOps.toLowerCase("WORLD")); // Outputs: world
+```
