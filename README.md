@@ -401,3 +401,181 @@ const stringOps = require("./stringOperations");
 console.log(stringOps.toUpperCase("hello")); // Outputs: HELLO
 console.log(stringOps.toLowerCase("WORLD")); // Outputs: world
 ```
+
+
+## Node.js File System (FS) Module
+
+The File System (FS) module in Node.js allows you to work with the file system on your computer. It provides functions to read, write, update, delete, and manage files and directories.
+
+### 3.1 Reading Files (Synchronous vs Asynchronous)
+
+- **Synchronous Reading**: Blocks the execution of code until the file is read completely. It’s straightforward but can slow down the program if the file is large.
+
+  ```javascript
+  const fs = require('fs');
+
+  try {
+      const data = fs.readFileSync('example.txt', 'utf8');
+      console.log(data);
+  } catch (err) {
+      console.error('Error reading file:', err);
+  }
+  ```
+
+  *Example*: Suppose you want to read a file containing a list of items. This approach will read the file and then proceed to the next operation only after reading is complete.
+
+- **Asynchronous Reading**: Allows other code to run while the file is being read. It’s non-blocking and more efficient for larger files.
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.readFile('example.txt', 'utf8', (err, data) => {
+      if (err) {
+          console.error('Error reading file:', err);
+          return;
+      }
+      console.log(data);
+  });
+  ```
+
+  *Example*: This approach is useful when you're reading large files or performing operations that shouldn't block the execution of other code, such as reading a log file on a web server.
+
+### 3.2 Writing to Files
+
+You can write to files using both synchronous and asynchronous methods.
+
+- **Synchronous Writing**:
+
+  ```javascript
+  const fs = require('fs');
+
+  try {
+      fs.writeFileSync('output.txt', 'This is a synchronous write.');
+      console.log('File written successfully');
+  } catch (err) {
+      console.error('Error writing to file:', err);
+  }
+  ```
+
+  *Example*: Writing user data to a file right after user registration.
+
+- **Asynchronous Writing**:
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.writeFile('output.txt', 'This is an asynchronous write.', (err) => {
+      if (err) {
+          console.error('Error writing to file:', err);
+          return;
+      }
+      console.log('File written successfully');
+  });
+  ```
+
+  *Example*: Saving a configuration file after user settings are updated, without blocking other operations.
+
+### 3.3 Updating and Deleting Files
+
+- **Updating Files**: You can append content to a file using `fs.appendFile()` or `fs.appendFileSync()`.
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.appendFile('output.txt', '
+Appending this line.', (err) => {
+      if (err) {
+          console.error('Error appending to file:', err);
+          return;
+      }
+      console.log('File updated successfully');
+  });
+  ```
+
+  *Example*: Logging application events or errors to a log file.
+
+- **Deleting Files**: Use `fs.unlink()` or `fs.unlinkSync()` to delete files.
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.unlink('output.txt', (err) => {
+      if (err) {
+          console.error('Error deleting file:', err);
+          return;
+      }
+      console.log('File deleted successfully');
+  });
+  ```
+
+  *Example*: Removing temporary files or clearing user-generated content.
+
+### 3.4 Working with Directories
+
+- **Creating a Directory**:
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.mkdir('new_directory', (err) => {
+      if (err) {
+          console.error('Error creating directory:', err);
+          return;
+      }
+      console.log('Directory created successfully');
+  });
+  ```
+
+  *Example*: Creating a folder to store user-uploaded files.
+
+- **Reading a Directory**:
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.readdir('.', (err, files) => {
+      if (err) {
+          console.error('Error reading directory:', err);
+          return;
+      }
+      console.log('Files in directory:', files);
+  });
+  ```
+
+  *Example*: Listing all files in a directory to display on a web page.
+
+- **Deleting a Directory**:
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.rmdir('new_directory', (err) => {
+      if (err) {
+          console.error('Error deleting directory:', err);
+          return;
+      }
+      console.log('Directory deleted successfully');
+  });
+  ```
+
+  *Example*: Removing a folder when a user deletes their account.
+
+### 3.5 Handling File Errors
+
+Handling errors when working with the file system is crucial to avoid unexpected crashes.
+
+- **Example**:
+
+  ```javascript
+  const fs = require('fs');
+
+  fs.readFile('nonexistent.txt', 'utf8', (err, data) => {
+      if (err) {
+          console.error('File read error:', err.message);
+          return;
+      }
+      console.log(data);
+  });
+  ```
+
+  *Example*: Attempting to read a non-existent file should be handled gracefully to inform the user without crashing the program.
