@@ -10,14 +10,13 @@ const server = http.createServer((req, res) => {
     res.write(
       "<html><head><title>Hello TRUDER</title></head><body><p>Working Dude</p></body></html>"
     );
-  } else if (url === "/test" && method == "GET") {
-    res.write(
-      "<html><head><title>Hello TRUDER</title></head><body><p>Hello TRUDER</p></body></html>"
-    );
+  } else if (url === "/test" && method == "POST") {
+    res.setHeader("Location", "/");
+    res.statusCode = 302;
   } else if (url === "/form") {
     res.write(
       `<html><head><title>Hello TRUDER</title></head><body>
-      <form action="/test" method="POST">
+      <form enctype="multipart/form-data" action="/test" method="POST">
       <input type="text" name="message"/>
       <button type="submit">Submit</button>
       </form></body></html>`
@@ -28,7 +27,6 @@ const server = http.createServer((req, res) => {
       <p>Work Aagala baa
       </body></html>`
     );
-    // res.setLocation("Location", "/");
   }
 
   res.end();
