@@ -579,3 +579,28 @@ Handling errors when working with the file system is crucial to avoid unexpected
   ```
 
   *Example*: Attempting to read a non-existent file should be handled gracefully to inform the user without crashing the program.
+
+
+# 17.4 Common Node.js Interview Questions
+
+# Task Queue vs Microtask Queue in JavaScript
+
+Understanding the differences between the **Task Queue** and the **Microtask Queue** is crucial for managing asynchronous operations in JavaScript. Below is a comparison table highlighting the key aspects of both queues.
+
+| **Aspect**                        | **Task Queue** (Macro Task Queue)          | **Microtask Queue**                        |
+|-----------------------------------|--------------------------------------------|--------------------------------------------|
+| **Definition**                    | A queue for tasks that are scheduled by functions like `setTimeout`, `setInterval`, `I/O events`, etc. | A queue for tasks that are scheduled by promises (`Promise.then()`), `MutationObserver`, and other microtasks. |
+| **Execution Timing**              | Tasks in the Task Queue are executed after the current event loop cycle is completed. | Microtasks are executed immediately after the currently executing script (or task) completes and before any Task Queue tasks are executed. |
+| **Use Cases**                     | Used for larger, non-urgent operations, such as timers or event callbacks. | Used for smaller, immediate tasks that need to be executed after the current operation, often used for promise handling. |
+| **Priority**                      | Lower priority compared to the Microtask Queue. | Higher priority; always executed before any Task Queue tasks in the same event loop cycle. |
+| **Examples**                      | `setTimeout`, `setInterval`, `I/O operations`, `setImmediate` (Node.js). | `Promise.then()`, `catch()`, `finally()`, `process.nextTick()` (Node.js), `MutationObserver`. |
+| **Order of Execution**            | Executed after all microtasks have been processed, at the end of the event loop cycle. | Executed immediately after the current task, before moving on to the Task Queue. |
+| **Blocking**                      | Task Queue operations can block other Task Queue tasks until they are completed. | Microtasks can block the transition to the next Task Queue task, as all microtasks are executed in sequence before moving on. |
+| **Impact on UI**                  | May cause visible delays or jank if a task takes too long to execute. | Typically short and quick, minimizing impact on the UI responsiveness. |
+| **Event Loop Interaction**        | Tasks are part of the normal event loop cycle. | Microtasks can be thought of as "sub-tasks" within a single event loop cycle, executed after each task but before the next. |
+
+## Summary
+- **Task Queue** is for more general, often less urgent tasks that are scheduled to run at the end of the current event loop.
+- **Microtask Queue** is for more immediate, high-priority tasks that need to run before the event loop continues with the next task.
+
+Understanding this distinction helps in optimizing performance and responsiveness in JavaScript applications.
